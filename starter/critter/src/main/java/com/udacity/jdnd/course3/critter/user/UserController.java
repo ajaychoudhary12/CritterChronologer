@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.data.Customer;
+import com.udacity.jdnd.course3.critter.pet.PetService;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Handles web requests related to Users.
@@ -23,6 +25,9 @@ public class UserController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private PetService petService;
+
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
         Customer customer = new Customer();
@@ -34,12 +39,19 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
+        return customerService.getAllCustomers().stream().map(customer -> {
+            CustomerDTO customerDTO = new CustomerDTO();
+            BeanUtils.copyProperties(customer, customerDTO);
+            return customerDTO;
+        }).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
-    public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        throw new UnsupportedOperationException();
+    public CustomerDTO getOwnerByPet(@PathVariable long petId) {
+        Customer customer = customerService.findCustomerByPetId(petId);
+        CustomerDTO customerDTO = new CustomerDTO();
+        BeanUtils.copyProperties(customer, customerDTO);
+        return customerDTO;
     }
 
     @PostMapping("/employee")

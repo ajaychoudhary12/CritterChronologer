@@ -23,4 +23,8 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return repository.findAll();
     }
+
+    public Customer findCustomerByPetId(long petId) {
+        return repository.findByPetsId(petId);
+    }
 }
