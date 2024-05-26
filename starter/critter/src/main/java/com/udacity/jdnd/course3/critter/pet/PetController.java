@@ -2,7 +2,7 @@ package com.udacity.jdnd.course3.critter.pet;
 
 import com.udacity.jdnd.course3.critter.data.Customer;
 import com.udacity.jdnd.course3.critter.data.Pet;
-import com.udacity.jdnd.course3.critter.user.CustomerNotFoundException;
+import com.udacity.jdnd.course3.critter.user.UserNotFoundException;
 import com.udacity.jdnd.course3.critter.user.CustomerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class PetController {
         if (optionalCustomer.isPresent()) {
             pet.setCustomer(optionalCustomer.get());
         } else {
-            throw new CustomerNotFoundException();
+            throw new UserNotFoundException();
         }
 
         Long id = petService.savePet(pet);
