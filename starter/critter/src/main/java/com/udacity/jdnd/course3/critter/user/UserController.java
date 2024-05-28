@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -74,12 +72,23 @@ public class UserController {
 
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        Optional<Employee> optionalEmployee = employeeService.findEmployee(employeeId);
+        if (optionalEmployee.isPresent()) {
+            Employee employee = optionalEmployee.get();
+            employee.setDaysAvailable(daysAvailable);
+            employeeService.saveEmployee(employee);
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+        Set<EmployeeSkill> skills = employeeDTO.getSkills();
+        DayOfWeek day = employeeDTO.getDate().getDayOfWeek();
+
+        List<Employee> employees = employeeService.findBySkillsAndDaysAvailable(skills, day);
+        return employees.stream().map(this::convertEmployeeToEmployeeDTO).collect(Collectors.toList());
     }
 
     private EmployeeDTO convertEmployeeToEmployeeDTO(Employee employee) {
