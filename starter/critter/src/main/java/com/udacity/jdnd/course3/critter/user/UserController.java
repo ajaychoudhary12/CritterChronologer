@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.data.Customer;
 import com.udacity.jdnd.course3.critter.data.Employee;
+import com.udacity.jdnd.course3.critter.data.Pet;
 import com.udacity.jdnd.course3.critter.pet.PetService;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.BeanUtils;
@@ -98,8 +99,10 @@ public class UserController {
     }
 
     private CustomerDTO convertCustomerToCustomerDTO(Customer customer) {
+        List<Long> petIds = customer.getPets().stream().map(Pet::getId).collect(Collectors.toList());
         CustomerDTO customerDTO = new CustomerDTO();
         BeanUtils.copyProperties(customer, customerDTO);
+        customerDTO.setPetIds(petIds);
         return customerDTO;
     }
 }
