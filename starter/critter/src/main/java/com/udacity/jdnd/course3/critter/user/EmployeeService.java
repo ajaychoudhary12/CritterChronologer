@@ -23,7 +23,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findBySkillsAndDaysAvailable(Set<EmployeeSkill> skills, DayOfWeek day) {
-        return employeeRepository.findEmployeeBySkillsInAndDaysAvailable(skills, day);
+        return employeeRepository.findEmployeesBySkillsAndDaysAvailable(skills, day);
     }
 
     public List<Employee> findAllByEmployeeIds(List<Long> employeeIds) {
