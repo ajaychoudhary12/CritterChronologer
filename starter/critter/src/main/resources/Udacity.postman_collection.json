@@ -105,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"petIds\": [6, 7],\n    \"employeeIds\": [1, 2],\n    \"date\": \"2024-05-28\",\n    \"activities\": [\"PETTING\", \"FEEDING\"]\n}",
+					"raw": "{\n    \"petIds\": [1],\n    \"employeeIds\": [1],\n    \"date\": \"2024-05-28\",\n    \"activities\": [\"PETTING\", \"FEEDING\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -190,7 +190,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:8082/schedule/employee/2"
+				"url": "http://localhost:8082/schedule/employee/1"
 			},
 			"response": []
 		},
@@ -216,7 +216,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:8082/schedule/employee/2"
+				"url": "http://localhost:8082/schedule/customer/1"
 			},
 			"response": []
 		},
